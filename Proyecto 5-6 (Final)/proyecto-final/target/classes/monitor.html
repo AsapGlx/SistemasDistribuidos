@@ -1,0 +1,48 @@
+<!-- 
+ * Proyecto Final
+ * González González Jesús Asael
+ * 7CM2
+ -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Monitor de Servidores</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #chartContainer {
+            display: grid;
+            width: 1200px; /* Ancho del contenedor */
+            grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+            gap: 10px; /* Espaciado entre gráficos */
+            padding: 10px;
+        }
+        .chart {
+    height: 400px;
+    width: 600px; 
+}
+    </style>
+</head>
+<body>
+    <div id="chartContainer">
+        <div>
+            <h3>Server Web</h3>
+        <canvas id="chartServer1" class="chart"></canvas>
+        </div>
+        <div>
+            <h3>Server 1</h3>
+            <canvas id="chartServer2" class="chart"></canvas>
+        </div>
+        <div>
+            <h3>Server 2</h3>
+            <canvas id="chartServer3" class="chart"></canvas>
+        </div>
+        <div>
+            <h3>Server 3</h3>
+            <canvas id="chartServer4" class="chart"></canvas>
+        </div>
+    </div>
+    <script src="monitor.js"></script>
+</body>
+</html>

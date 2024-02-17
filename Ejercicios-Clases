@@ -1,0 +1,818 @@
+Programa 5
+
+import java.lang.Math;
+
+public class Main01 {
+
+    public static void main(String[] args){
+	char words[][] = new char[Integer.parseInt(args[0])][3];
+	for(int i = 0; i < Integer.parseInt(args[0]); i++){
+		//26 = 90 - 65 + 1 = max - min +1
+		//Random de 0 a menos de 1
+		words[i][0] = (char)((int)(Math.random()*26.0 + 65.0));
+		words[i][1] = (char)((int)(Math.random()*26.0 + 65.0));
+		words[i][2] = (char)((int)(Math.random()*26.0 + 65.0));
+	}
+	counterW(words,Integer.parseInt(args[0]));
+	
+   }
+
+
+   public static void counterW(char words[][], int n){	
+	int counter = 0;
+	for(int i = 0; i < n; i++){
+		if(words[i][0] == 'I' && words[i][1] == 'P' && words[i][2] == 'N') counter++;
+		
+	}
+	System.out.println("Se repite " + counter + " veces");
+   }
+
+}
+
+Programa 6
+
+public class Main02{
+    public static void main(String[] args) {
+        int cantidadPalabras = Integer.parseInt(args[0]);
+        StringBuilder constructor = new StringBuilder();
+
+ 
+
+        for (int i = 0; i < cantidadPalabras; i++) {
+            for (int j = 0; j < 3; j++) {
+                char letra = (char) ((int) 'A' + Math.random() * 26);
+                constructor.append(letra);
+            }
+            constructor.append(' ');
+        }
+
+ 
+
+        String cadenaCompleta = constructor.toString();
+        int contador = 0;
+        int indice = -1;
+        int desdeIndice = 0;
+
+ 
+
+        while ((indice = cadenaCompleta.indexOf("IPN", desdeIndice)) != -1) {
+            contador++;
+            desdeIndice = indice + 1;
+        }
+
+ 
+
+        System.out.println("Número de apariciones: " + contador);
+    }
+}
+
+Clase 9
+
+public class PruebaRectangulo {
+
+    public static void main(String[] args) {
+
+        Coordenada c1 = new Coordenada(2, 3);
+        Coordenada c2 = new Coordenada(5, 1);
+
+        Rectangulo rect1 = new Rectangulo(c1, c2);
+
+        double ancho, alto;
+
+        System.out.println("Calculando el área de un rectángulo dadas sus coordenadas en un plano cartesiano:");
+        System.out.println(rect1);
+
+        alto = rect1.superiorIzquierda().ordenada() - rect1.inferiorDerecha().ordenada();
+        ancho = rect1.inferiorDerecha().abcisa() - rect1.superiorIzquierda().abcisa();
+
+        System.out.println("El área del rectángulo es = " + ancho * alto);
+    }
+}
+
+import java.util.Random;
+
+public class PoligonoIre {
+    private Coordenada[] v;
+    private int n;
+
+    public Poligono(int capacidad) {
+        v = new Coordenada[capacidad];
+        n = 0;
+    }
+
+    public void agregarVertice(Coordenada p) {
+        if (n < v.length) {
+            v[n] = p;
+            n++;
+        } else {
+            System.out.println("capacidad máxima alcanzada.");
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Vértices del polígono:\n");
+        for (int i = 0; i < n; i++) {
+            sb.append(v[i].toString()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    public static Coordenada generarCoordenadaAleatoria() {
+        Random r = new Random();
+        double x = r.nextDouble() * 20 - 10; 
+        double y = r.nextDouble() * 20 - 10;
+        return new Coordenada(x, y);
+    }
+
+    public static void main(String[] args) {
+        int numVertices = 10; 
+        Poligono poligono = new Poligono(numVertices);
+
+        System.out.println("Coordenadas aleatorias de los vértices del polígono:");
+        for (int i = 0; i < numVertices; i++) {
+            Coordenada punto = generarCoordenadaAleatoria();
+            poligono.agregarVertice(punto);
+            System.out.println(punto.toString());
+        }
+
+        System.out.println("\n" + poligono.toString());
+    }
+}
+
+public class Coordenada {
+
+    private double x, y;
+
+    public Coordenada(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public double abcisa() {
+        return x;
+    }
+
+    public double ordenada() {
+        return y;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + x + "," + y + "]";
+    }
+}
+
+public class Rectangulo {
+
+    private Coordenada superiorIzq, inferiorDer;
+
+    public Rectangulo() {
+        superiorIzq = new Coordenada(0, 0);
+        inferiorDer = new Coordenada(0, 0);
+    }
+
+    public Rectangulo(double xSupIzq, double ySupIzq, double xInfDer, double yInfDer) {
+        superiorIzq = new Coordenada(xSupIzq, ySupIzq);
+        inferiorDer = new Coordenada(xInfDer, yInfDer);
+    }
+
+    public Rectangulo(Coordenada c1, Coordenada c2) {
+        superiorIzq = c1;
+        inferiorDer = c2;
+    }
+
+    public Coordenada superiorIzquierda() {
+        return superiorIzq;
+    }
+
+    public Coordenada inferiorDerecha() {
+        return inferiorDer;
+    }
+
+    @Override
+    public String toString() {
+        return "Esquina superior izquierda: " + superiorIzq + "\tEsquina superior derecha:" + inferiorDer + "\n";
+    }
+}
+
+JFLAGS = -g
+JC = javac
+
+.SUFFIXES: .java .class
+
+.java.class:
+	$(JC) $(JFLAGS) $*.java
+
+CLASSES = \
+		  PruebaRectangulo.java \
+		  Rectangulo.java \
+		  Coordenada.java \
+
+default: classes
+
+classes: $(CLASSES:.java=.class)
+
+clean:
+	$(RM) *.class
+	
+run:
+	java PruebaRectangulo
+	
+	
+
+
+Clase 6
+
+public class EjerciciosSerie1 {
+
+    public static void main(String[] args){
+
+        double c = 20;
+
+        double f;
+
+ 
+
+        f = ((double)9 /5) * c + 32.0; // 9/5 lo ponemos como 1.8
+
+        System.out.println(f);
+   }
+
+}
+
+2.- Elabore una línea de código que imprima con printf el valor de Math.PI con 10 dígitos decimales
+
+public class Main02 {
+
+    public static void main(String[] args){
+
+        System.out.printf("El valor es: %.10f %n", Math.PI);
+   }
+
+}
+
+3.- Escriba un programa que cuente del 1 al 15, imprima cada número y luego cuente hacia atrás de dos en dos hasta el 1, imprimiendo nuevamente cada número.
+
+public class Main03 {
+
+    public static void main(String[] args){
+
+        for(int i = 1; i<=15; i++) System.out.print(i + " ");
+      
+				System.out.println(" ");
+      
+				for(int i = 7; i>=0; i--) System.out.print((2*i + 1) + " ");
+      
+				System.out.println(" ");
+   }
+
+}
+
+4.- Cada término de la serie de Fibonacci se forma sumando los dos términos anteriores. Elabore un programa similar que cree una serie sumando los tres términos anteriores. El programa deberá imprimir los primeros 20 términos de esta serie.
+
+import java.util.ArrayList;
+
+public class Main04 {
+
+    public static void main(String[] args){
+	ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);        
+	list.add(1);        
+	list.add(1);
+
+	System.out.print(list.get(0) + " " + list.get(1) + " " +list.get(2) + " ");
+
+	for(int i = 4; i<=20; i++){
+		list.add(list.get(0) +list.get(1)+list.get(2));
+		System.out.print(list.get(3) + " ");
+		list.remove(0);
+	}   
+	System.out.println("");
+   }
+
+}
+
+Clase 29 
+
+ejercicio 1 
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpHeaders;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.time.Duration;
+
+public class HttpClientSynchronous {
+
+    private static final HttpClient httpClient = HttpClient.newBuilder()
+            .version(HttpClient.Version.HTTP_1_1)
+            .connectTimeout(Duration.ofSeconds(10))
+            .build();
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+ 
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create("http://localhost:8091/status"))
+                .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
+                .build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        // print response headers
+        HttpHeaders headers = response.headers();
+        headers.map().forEach((k, v) -> System.out.println(k + ":" + v));
+
+        // print status code
+        System.out.println(response.statusCode());
+
+        // print response body
+        System.out.println(response.body());
+
+    }
+
+}
+
+ejercicio 2
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpHeaders;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.time.Duration;
+
+public class HttpClientSynchronous {
+
+    private static final HttpClient httpClient = HttpClient.newBuilder()
+            .version(HttpClient.Version.HTTP_1_1)
+            .connectTimeout(Duration.ofSeconds(10))
+            .build();
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("http://localhost:8091/searchtoken"))
+            .header("Content-Type", "text/plain; charset=UTF-8")
+            .header("X-Debug", "true")
+            .POST(BodyPublishers.ofString("17576000,IPN"))
+            .build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        // print response headers
+        HttpHeaders headers = response.headers();
+        headers.map().forEach((k, v) -> System.out.println(k + ":" + v));
+
+        // print status code
+        System.out.println(response.statusCode());
+
+        // print response body
+        System.out.println(response.body());
+
+    }
+
+}
+
+
+Clase 38 
+
+Aggregator 
+
+import networking.WebClient;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
+
+public class Aggregator {
+    private WebClient webClient;
+
+    public Aggregator() {
+        this.webClient = new WebClient();
+    }
+
+    //Recibe la lista de las direcciones de los trabajadores y la lista de las tareas
+    public List<String> sendTasksToWorkers(List<String> workersAddresses, List<Demo> tasks) {
+        //Futures es para las tareas asincronas
+        CompletableFuture<String>[] futures = new CompletableFuture[tasks.size()];
+
+        for (int i = 0; i < workersAddresses.size(); i++) {
+            //Se obtiene la direccion de los trabajadores
+            String workerAddress = workersAddresses.get(i);
+            //Se obtiene la task
+            Demo task = tasks.get(i);
+            //Se almacenan en bytes
+            byte[] requestPayload = SerializationUtils.serialize(task);
+            //Se envian y asocian a cada future
+            futures[i] = webClient.sendTask(workerAddress, requestPayload);
+            System.out.println(workerAddress + " se le asigno el task: " + task);
+        }
+
+        boolean bandera = true;
+        // Evalúa continuamente si uno de los servidores ha terminado.
+        while(bandera){
+            for(int j = 0; j < workersAddresses.size(); j++){
+                if (true == futures[j].isDone())
+                    bandera = false;
+            }
+        }
+
+        //lista de resultados asíncronos
+        List<String> results = new ArrayList();
+        for (int i = 0; i < tasks.size(); i++) {
+            results.add(futures[i].join());
+        }
+
+        return results;
+    }
+}
+
+Application 
+
+import java.util.Arrays;
+import java.util.List;
+
+public class Application {
+    //endpoints
+    private static final String address = "http://localhost:8090/task";
+
+    public static void main(String[] args) {
+        Aggregator aggregator = new Aggregator();
+        //Instancia de la clase Demo, con los parametros
+        Demo demo = new Demo("123456789","987654321");
+        System.out.println(demo);
+         //Envio de datos
+        List<String> results = aggregator.sendTasksToWorkers(Arrays.asList(address),
+                Arrays.asList(demo));
+            //Resultados
+        for (String result : results) {
+            System.out.println(result);
+        }
+    }
+}
+
+Demo 
+
+import java.io.*;
+
+class Demo implements java.io.Serializable
+{//Lo cambiamos a String todos los parametros
+    public String a;
+    public String b;
+
+    // Default constructor
+    public Demo(String a, String b)
+    {
+        this.a = a;
+        this.b = b;
+    }
+
+    @Override
+    public String toString() {
+        return "a = " + a + ", b = " + b;
+    }
+}
+
+WebServer
+
+private void handleTaskRequest(HttpExchange exchange) throws IOException {
+        // Verifica si la solicitud no es POST y la cierra si no lo es
+        if (!exchange.getRequestMethod().equalsIgnoreCase("post")) {
+            exchange.close();
+            return;
+        }
+        //El request
+        byte[] requestBytes = exchange.getRequestBody().readAllBytes();
+        //La respuesta
+        byte[] responseBytes = calculateResponse(requestBytes);
+        sendResponse(responseBytes, exchange);
+    }
+
+    private byte[] calculateResponse(byte[] requestBytes) {
+        //Descerializamos
+        Demo demo = (Demo)SerializationUtils.deserialize(requestBytes);
+        System.out.println(demo); // Imprime el objeto
+
+        BigInteger result = BigInteger.ONE;
+        //Obtenemos los parametros como BigInteger
+        BigInteger bigIntegerA = new BigInteger(demo.a);
+        BigInteger bigIntegerB = new BigInteger(demo.b);
+        //Multiplicamos
+        result = result.multiply(bigIntegerA).multiply(bigIntegerB);
+        
+        return String.format("El resultado de la multiplicación es %s\n", result).getBytes();
+    }
+    
+    
+
+Clase 39 
+
+WEBSERVER
+
+private void handleTaskRequest(HttpExchange exchange) throws IOException {
+        // Verifica si la solicitud no es POST y la cierra si no lo es
+        if (!exchange.getRequestMethod().equalsIgnoreCase("post")) {
+            exchange.close();
+            return;
+        }
+        //El request
+        byte[] requestBytes = exchange.getRequestBody().readAllBytes();
+        //La respuesta
+        byte[] responseBytes = addResponse(requestBytes);
+        sendResponse(responseBytes, exchange);
+    }
+
+    private byte[] addResponse (byte[] requestBytes) {
+        //Descerializamos
+        PoligonoIrreg poligonoIrreg = (PoligonoIrreg)SerializationUtils.deserialize(requestBytes);
+        System.out.println("Poligono recibido");
+        System.out.println(poligonoIrreg); // Imprime el objeto
+
+        poligonoIrreg.generarCoordenadaAleatoria();
+        System.out.println("Poligono enviado");
+        System.out.println(poligonoIrreg); // Imprime el objeto
+
+        return SerializationUtils.serialize(poligonoIrreg);
+        
+    }
+    
+WEBCLIENT
+
+package networking;
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.concurrent.CompletableFuture;
+
+public class WebClient {
+    private HttpClient client;
+
+    public WebClient() {
+        this.client = HttpClient.newBuilder()
+                .version(HttpClient.Version.HTTP_1_1)
+                .build();
+    }
+    //Recibe la direccion con la que realizara la conexion y los datos 
+    public CompletableFuture<byte[]> sendTask(String url, byte[] requestPayload) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofByteArray(requestPayload))
+                .header("X-debug","true")
+                .uri(URI.create(url))
+                .build();
+        //Envia el http request
+        return client.sendAsync(request, HttpResponse.BodyHandlers.ofByteArray())
+                .thenApply(respuesta -> { return respuesta.body();});
+    }
+}
+
+AGGREGATOR 
+
+import networking.WebClient;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
+
+public class Aggregator {
+    private WebClient webClient;
+
+    public Aggregator() {
+        this.webClient = new WebClient();
+    }
+
+    //Recibe la lista de las direcciones de los trabajadores y la lista de las tareas
+    public List<byte[]> sendTasksToWorkers(List<String> workersAddresses, List<PoligonoIrreg> tasks) {
+        //Futures es para las tareas asincronas
+        CompletableFuture<byte[]>[] futures = new CompletableFuture[tasks.size()];
+
+        for (int i = 0; i < workersAddresses.size(); i++) {
+            //Se obtiene la direccion de los trabajadores
+            String workerAddress = workersAddresses.get(i);
+            //Se obtiene la task
+            PoligonoIrreg task = tasks.get(i);
+            //Se almacenan en bytes
+            byte[] requestPayload = SerializationUtils.serialize(task);
+            //Se envian y asocian a cada future
+            futures[i] = webClient.sendTask(workerAddress, requestPayload);
+            System.out.println(workerAddress + " se le asigno el task");
+        }
+
+        boolean bandera = true;
+        // Evalúa continuamente si uno de los servidores ha terminado.
+        while(bandera){
+            for(int j = 0; j < workersAddresses.size(); j++){
+                if (true == futures[j].isDone())
+                    bandera = false;
+            }
+        }
+
+        //lista de resultados asíncronos
+        List<byte[]> results = new ArrayList();
+        for (int i = 0; i < tasks.size(); i++) {
+            results.add(futures[i].join());
+        }
+
+        return results;
+    }
+}
+
+APPLICATION 
+
+import java.util.Arrays;
+import java.util.List;
+
+public class Application {
+    //endpoints
+    private static final String address = "http://localhost:8090/task";
+
+    public static void main(String[] args) {
+        Aggregator aggregator = new Aggregator();
+        //Instancia de la clase PoligonoIrreg, con los parametros
+        PoligonoIrreg poligonoIrreg = new PoligonoIrreg(10);
+        poligonoIrreg.generarCoordenadaAleatoria();
+        poligonoIrreg.generarCoordenadaAleatoria();
+        poligonoIrreg.generarCoordenadaAleatoria();
+        System.out.println("Original");
+        System.out.println(poligonoIrreg);
+        for(;;){
+            //Envio de datos
+            List<byte[]> results = aggregator.sendTasksToWorkers(Arrays.asList(address),
+                    Arrays.asList(poligonoIrreg));
+                //Resultados
+            poligonoIrreg = (PoligonoIrreg)SerializationUtils.deserialize(results.get(0));
+            System.out.println("Retornado del server");
+            System.out.println(poligonoIrreg);
+            if(poligonoIrreg.getN() == 10) break;
+            System.out.println("Modificación en cliente");
+            poligonoIrreg.generarCoordenadaAleatoria();
+            System.out.println(poligonoIrreg);
+        } System.out.println("Se alcanzo la cantidad máxima");
+    }
+}
+
+Clase 40
+
+import com.sun.net.httpserver.Headers;
+import com.sun.net.httpserver.HttpContext;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpServer;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.math.BigInteger;
+import java.net.InetSocketAddress;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.Executors;
+
+public class WebServer {
+    private static final String SERVICE_EP = "/servicios";
+    private final int port;
+    private HttpServer server;
+
+    public static void main(String[] args) {
+        int serverPort = 8081;
+        if (args.length == 1) {
+            serverPort = Integer.parseInt(args[0]);
+        }
+        WebServer webServer = new WebServer(serverPort);
+        webServer.startServer();
+        System.out.println("Servidor escuchando en el puerto " + serverPort);
+    }
+
+    public WebServer(int port) {
+        this.port = port;
+    }
+    //Iniciamos
+    public void startServer() {
+        try { //Creamos un servidor
+            this.server = HttpServer.create(new InetSocketAddress(port), 0);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        //El context de los endpoint
+        HttpContext serviceContext = server.createContext(SERVICE_EP);
+        //Sus handler
+        serviceContext.setHandler(this::handleServiceRequest);
+        //Definimos el pool e iniciamos
+        server.setExecutor(Executors.newFixedThreadPool(8));
+        server.start();
+    }
+
+    //Handler de service
+    private void handleServiceRequest(HttpExchange exchange) throws IOException {
+        if (!exchange.getRequestMethod().equalsIgnoreCase("get")) {
+            exchange.close();
+            return;
+        }
+        //El aggregator
+        Aggregator aggregator = new Aggregator();
+
+        //Obtiene la solicitud y su contenido
+        String uri = exchange.getRequestURI().toString();
+        //Index de ?
+        int index = uri.indexOf("?");
+        //Obtenemos los parametros
+        String paramGroup =  uri.substring(index+1);
+        String[] params = paramGroup.split("&");
+
+        String num = params[0].split("=")[1];
+
+        int service = Integer.parseInt(params[1].split("=")[1]);
+
+        if(service == 3){
+            //es 3
+            List<String> results = aggregator.sendTasksToWorkers(Arrays.asList(
+                "http://localhost:8091/primo","http://localhost:8092/sum"
+            ),Arrays.asList(num,num));
+            
+            sendResponse((results.get(0) + "\n" + results.get(1)).getBytes(), exchange);
+        }
+        else {
+            //es 1 o 2
+            String add = "";
+            if(service == 1) add = "8091/primo";
+            else if(service == 2)add = "8092/sum";
+
+            String address = "http://localhost:" + add;
+            
+            List<String> results = aggregator.sendTasksToWorkers(Arrays.asList(address),Arrays.asList(num));
+
+            for(String res: results){
+                sendResponse(res.getBytes(), exchange);
+            }
+        }
+    } 
+    //Enviar
+    private static void sendResponse(byte[] responseBytes, HttpExchange exchange) throws IOException {
+        exchange.sendResponseHeaders(200, responseBytes.length);
+        OutputStream outputStream = exchange.getResponseBody();
+        outputStream.write(responseBytes);
+        outputStream.flush();
+        outputStream.close();
+        exchange.close();
+    }
+}
+
+Clase 43
+
+private void handleTaskRequest(HttpExchange exchange) throws IOException {
+        Aggregator aggregator = new Aggregator();
+        if (!exchange.getRequestMethod().equalsIgnoreCase("post")) { 
+            exchange.close();
+            return;
+        }
+
+        System.out.println("Estamos en handleTaskRequest del endpoint procesar_datos");
+        Headers headers = exchange.getRequestHeaders();
+
+        // Imprimir cada encabezado
+        for (Map.Entry<String, List<String>> entry : headers.entrySet()) {
+            String headerName = entry.getKey();
+            List<String> headerValues = entry.getValue();
+        }
+
+        try {
+            FrontendSearchRequest frontendSearchRequest = objectMapper.readValue(exchange.getRequestBody().readAllBytes(), FrontendSearchRequest.class); // lee los bytes de la pagina del usuario, y los parsea a un objetp de tipo FrontendSearchRequest con una instancia de object mapper
+            String frase = frontendSearchRequest.getSearchQuery(); // obtiene la frase
+            StringTokenizer st = new StringTokenizer(frase); // la tokeniza y crea una instancia 
+            
+            BigInteger num = new BigInteger(frase);
+
+            BigInteger inc = num.divide(new BigInteger("3"));
+
+            BigInteger l1 = BigInteger.ZERO.add(inc);
+            BigInteger l2 = l1.add(inc);
+
+            List<String> results = aggregator.sendTasksToWorkers(Arrays.asList(
+                "http://localhost:8091/fact","http://localhost:8092/fact","http://localhost:8093/fact"
+            ),Arrays.asList(
+                1+"@"+l1,
+                (l1.add(BigInteger.ONE))+"@"+l2,
+                (l2.add(BigInteger.ONE))+"@"+num)
+            );
+
+            BigInteger prod = BigInteger.ONE;
+
+            for(String res: results) prod = prod.multiply(new BigInteger(res));
+            System.out.println(prod);
+
+            //FrontendSearchResponse frontendSearchResponse = new FrontendSearchResponse(frase, st.countTokens()); // crea un objeto para poder usar Object Mapper y enviar los bytes
+            FrontendSearchResponse frontendSearchResponse = new FrontendSearchResponse(frase, prod+"");
+            byte[] responseBytes = objectMapper.writeValueAsBytes(frontendSearchResponse); // con object Mapper pasa el objeto a bytes
+            sendResponse(responseBytes, exchange); // envia esos bytes
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+    }
