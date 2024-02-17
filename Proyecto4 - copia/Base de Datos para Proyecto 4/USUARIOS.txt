@@ -1,5 +1,0 @@
-asa:energizer1
-prueba1:prueba1
-dana:hola1234
-admin:admin
-perro:comida23
