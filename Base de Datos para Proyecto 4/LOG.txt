@@ -1,5 +1,0 @@
-2023-11-22T14:19:52.226524 - Server 1: Offline, Server 2: Offline
-2023-11-22T14:19:55.176486 - Server 1: Offline, Server 2: Offline
-2023-11-22T14:19:58.176579 - Server 1: Offline, Server 2: Offline
-2023-11-22T14:20:01.176523 - Server 1: Offline, Server 2: Offline
-2023-11-22T14:20:04.176201 - Server 1: Offline, Server 2: Offline
